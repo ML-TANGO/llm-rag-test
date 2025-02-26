@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문서 업로드 및 질의</title>
+    <script>
+        async function uploadPDF() {
+            const fileInput = document.getElementById("pdfFile");
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+            
+            const response = await fetch("/upload_pdf", {
+                method: "POST",
+                body: formData
+            });
+            const result = await response.json();
+            alert(JSON.stringify(result, null, 2));
+        }
+
+
+        async function askQuery() {
+            const query = document.getElementById("query").value;
+            
+            const response = await fetch("/ask_pdf", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: query })
+            });
+            const result = await response.json();
+            document.getElementById("answer").innerText = result.answer || result.error;
+        }
+    </script>
+</head>
+<body>
+    <h2>PDF 업로드</h2>
+    <input type="file" id="pdfFile">
+    <button onclick="uploadPDF()">업로드</button>
+    
+    <h2>문서 기반 질문하기</h2>
+    <input type="text" id="query" placeholder="질문을 입력하세요">
+    <button onclick="askQuery()">질문하기</button>
+    <p><strong>답변:</strong> <span id="answer"></span></p>
+</body>
+</html>
