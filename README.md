@@ -77,13 +77,10 @@ pdf와 db 디렉토리는 코드 실행 시 자동생성 됩니다.
 
 배쉬 쉘로 PDF 파일을 업로드하려면 다음과 같은 요청을 보냅니다.
 ```sh
-curl -X POST "http://127.0.0.1:8000/upload_pdf" \
-     -H "Content-Type: multipart/form-data" \
-     -F "file=@example.pdf"
+curl -X POST http://127.0.0.1:8000/upload_pdf -F "file=@/input/your/file/path.pdf"
 ```
 
 - **설명:** 사용자가 PDF 파일을 업로드하면 해당 파일이 저장되고, 텍스트가 추출되어 벡터화된 후 데이터베이스에 저장됩니다.
-- **요청 형식:** multipart/form-data
 - **응답 예시:**
 ```json
 {
@@ -92,6 +89,11 @@ curl -X POST "http://127.0.0.1:8000/upload_pdf" \
   "chunk_len": 20
 }
 ```
+- **실행 예시:**
+
+![image](https://github.com/user-attachments/assets/6d21cce6-ed0c-4411-b61d-8c19eb5c1e1a)
+![image](https://github.com/user-attachments/assets/ef2be0bf-0f3e-438c-95d7-4e6f276873df)
+
 
 ### 🔍 2. PDF 기반 질의응답
 
@@ -109,4 +111,8 @@ curl -X POST "http://127.0.0.1:8000/ask_pdf" \
   "context_text": "유사도: 0.85 - 개인정보보호법은..."
 }
 ```
+- **실행 예시:**
 
+![image](https://github.com/user-attachments/assets/b1bfc712-8733-45ac-ac6a-9545ba437e72)
+
+  
